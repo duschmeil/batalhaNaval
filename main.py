@@ -4,9 +4,9 @@ from random import randint
 RESET = '\033[0m'
 VERMELHO = '\033[91m'
 AZUL = '\033[94m'
-VERDE = '\033[92m'
+VERDE_CLARO = '\033[92m'
 AMARELO = '\033[93m'
-ROXO = '\033[95m'
+LARANJA_VIVO = '\033[38;5;208m'
 BRANCO = '\033[97m'
 ROSA = '\033[35m'
 
@@ -15,9 +15,9 @@ def colorir(celula):
     if celula == 'D':
         return f"{AMARELO}D{RESET}"
     elif celula == 'T':
-        return f"{VERDE}T{RESET}"
+        return f"{VERDE_CLARO}T{RESET}"
     elif celula == 'C':
-        return f"{ROXO}C{RESET}"
+        return f"{LARANJA_VIVO}C{RESET}"
     elif celula == 'S':
         return f"{ROSA}S{RESET}"
     elif celula == 'P':
