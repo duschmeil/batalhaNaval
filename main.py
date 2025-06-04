@@ -9,6 +9,7 @@ AMARELO = '\033[93m'
 LARANJA_VIVO = '\033[38;5;208m'
 BRANCO = '\033[97m'
 ROSA = '\033[35m'
+MARROM = '\033[38;5;94M'
 
 
 def colorir(celula):
@@ -26,6 +27,8 @@ def colorir(celula):
         return f"{VERMELHO}X{RESET}"
     elif celula == '0':
         return f"{AZUL}O{RESET}"
+    elif celula == 'O':
+        return f"{MARROM}O{RESET}"
     else:
         return f"{celula}"
 
@@ -51,6 +54,20 @@ matrizComputador = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+def printTabuleiroOculto(matriz):
+    cont = 0
+    print("    1 2 3 4 5 6 7 8 9 10")
+    print("    --------------------")
+    for i, linha in enumerate(matriz):
+        linha_formatada = []
+        cont += 1
+        for celula in linha:
+            if celula == 'X' or celula == 'O':
+                linha_formatada.append(colorir(celula))
+            else:
+                linha_formatada.append("0")
+        print(f"{cont:2} -", " ".join(colorir(str(item)) for item in linha))
 
 def printTabuleiro(matriz):
     cont = 0
@@ -91,10 +108,20 @@ def gerar_tabuleiro_computador():
 
     return matriz
 
+def jogadaJogador(matrizpc):
+    jogadaLinha, jogadaColuna = map(int, input("digite onde voce quer atacar: [LINHA(espaco)COLUNA] ").split())
+    if matrizpc[jogadaLinha - 1][jogadaColuna - 1] != 0:
+        print("Voce acertou algo...")
+        matrizpc[jogadaLinha - 1][jogadaColuna - 1] = 'X'
+    else:
+        print("Você acertou a água! ")
+        matrizpc[jogadaLinha - 1][jogadaColuna - 1] = 'O'
+    printTabuleiroOculto(matrizpc)
 
 print("TABULEIRO DO JOGADOR")
 printTabuleiro(matrizJogador)
 printTabuleiro(gerar_tabuleiro_computador())
+jogadaJogador(matrizComputador)
 
 print()
 destroierPLinha, destroierPColuna = map(int, input("SELECIONE A POSIÇÃO DO SEU DESTROIER (1x1): [LINHA COLUNA] ").split())
