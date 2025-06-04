@@ -123,3 +123,35 @@ while True:
         break
 
 printTabuleiro(matrizJogador)
+
+def posicionarNaviosComputador(matriz):
+    navios = {
+        'D': 1,   # Destroier
+        'S': 2,   # Submarino
+        'C': 3,   # Contratorpedeiro
+        'T': 4,   # Navio Tanque
+        'P': 5    # Porta-aviões
+    }
+
+    for navio, quantidade in navios.items():
+        cont = 0
+        while cont < quantidade:
+            linha = randint(0, 9)
+            coluna = randint(0, 9)
+            if matriz[linha][coluna] == 0:
+                matriz[linha][coluna] = navio
+                cont += 1
+
+# Posiciona os navios no tabuleiro do computador
+posicionarNaviosComputador(matrizComputador)
+
+printTabuleiro(matrizComputador)
+
+
+
+
+
+
+
+
+
