@@ -60,8 +60,41 @@ def printTabuleiro(matriz):
         cont += 1
         print(f"{cont:2} -", " ".join(colorir(str(item)) for item in linha))
     
+def gerar_tabuleiro_computador():
+    navios = {
+        'D': 1,  
+        'S': 2,  
+        'C': 3,  
+        'T': 4,  
+        'P': 5   
+    }
+
+    matriz = [[0 for _ in range(10)] for _ in range(10)]
+
+    for letra, tamanho in navios.items():
+        while True:
+            direcao = randint(0, 1) 
+            if direcao == 0: 
+                linha = randint(0, 9)
+                coluna = randint(0, 10 - tamanho)
+                if all(matriz[linha][coluna + i] == 0 for i in range(tamanho)):
+                    for i in range(tamanho):
+                        matriz[linha][coluna + i] = letra
+                    break
+            else:  
+                linha = randint(0, 10 - tamanho)
+                coluna = randint(0, 9)
+                if all(matriz[linha + i][coluna] == 0 for i in range(tamanho)):
+                    for i in range(tamanho):
+                        matriz[linha + i][coluna] = letra
+                    break
+
+    return matriz
+
+
 print("TABULEIRO DO JOGADOR")
 printTabuleiro(matrizJogador)
+printTabuleiro(gerar_tabuleiro_computador())
 
 print()
 destroierPLinha, destroierPColuna = map(int, input("SELECIONE A POSIÇÃO DO SEU DESTROIER (1x1): [LINHA COLUNA] ").split())
@@ -122,4 +155,4 @@ while True:
     if cont == 5:
         break
 
-printTabuleiro(matrizJogador)
+
