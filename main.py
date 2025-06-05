@@ -9,7 +9,7 @@ AMARELO = '\033[93m'
 LARANJA_VIVO = '\033[38;5;208m'
 BRANCO = '\033[97m'
 ROSA = '\033[35m'
-MARROM = '\033[38;5;94M'
+MARROM = '\033[38;5;94m'
 
 
 def colorir(celula):
@@ -56,18 +56,18 @@ matrizComputador = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 def printTabuleiroOculto(matriz):
-    cont = 0
     print("    1 2 3 4 5 6 7 8 9 10")
     print("    --------------------")
     for i, linha in enumerate(matriz):
         linha_formatada = []
-        cont += 1
         for celula in linha:
             if celula == 'X' or celula == 'O':
                 linha_formatada.append(colorir(celula))
             else:
-                linha_formatada.append("0")
-        print(f"{cont:2} -", " ".join(colorir(str(item)) for item in linha))
+                linha_formatada.append(colorir('0')) 
+        print(f"{i+1:2} -", " ".join(linha_formatada))
+
+
 
 def printTabuleiro(matriz):
     cont = 0
@@ -109,19 +109,25 @@ def gerar_tabuleiro_computador():
     return matriz
 
 def jogadaJogador(matrizpc):
-    jogadaLinha, jogadaColuna = map(int, input("digite onde voce quer atacar: [LINHA(espaco)COLUNA] ").split())
-    if matrizpc[jogadaLinha - 1][jogadaColuna - 1] != 0:
-        print("Voce acertou algo...")
-        matrizpc[jogadaLinha - 1][jogadaColuna - 1] = 'X'
-    else:
-        print("Você acertou a água! ")
-        matrizpc[jogadaLinha - 1][jogadaColuna - 1] = 'O'
-    printTabuleiroOculto(matrizpc)
+    while True: 
+        jogadaLinha, jogadaColuna = map(int, input("digite onde voce quer atacar: [LINHA(espaco)COLUNA] ").split())
+        if matrizpc[jogadaLinha - 1][jogadaColuna - 1] != 0 and matrizpc[jogadaLinha - 1][jogadaColuna - 1] != 'X' and matrizpc[jogadaLinha - 1][jogadaColuna - 1] != 'O':
+            print("Você acertou algo...")
+            matrizpc[jogadaLinha - 1][jogadaColuna - 1] = 'X'
+            printTabuleiroOculto(matrizpc)
+            break
+        elif matrizpc[jogadaLinha - 1][jogadaColuna - 1] == 0:
+            print("Você acertou a água! ")
+            matrizpc[jogadaLinha - 1][jogadaColuna - 1] = 'O'
+            printTabuleiroOculto(matrizpc)
+            break
+        elif matrizpc[jogadaLinha - 1][jogadaColuna - 1] == 'O' or matrizpc[jogadaLinha - 1][jogadaColuna - 1] == 'X':
+            print("Você já jogou nesse lugar! Jogue novamente!")
+        printTabuleiroOculto(matrizpc)
 
 print("TABULEIRO DO JOGADOR")
 printTabuleiro(matrizJogador)
-printTabuleiro(gerar_tabuleiro_computador())
-jogadaJogador(matrizComputador)
+matrizComputador = gerar_tabuleiro_computador()
 
 print()
 destroierPLinha, destroierPColuna = map(int, input("SELECIONE A POSIÇÃO DO SEU DESTROIER (1x1): [LINHA COLUNA] ").split())
@@ -183,3 +189,7 @@ while True:
         break
 
 printTabuleiro(matrizJogador)
+
+while True:
+    jogadaJogador(matrizComputador)
+
