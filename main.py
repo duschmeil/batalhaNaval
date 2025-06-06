@@ -249,7 +249,7 @@ while True:
     jogadaJogador(matrizComputador)
     if checkDes(matrizComputador) == True and destruidoDes == False:
         print("Você destruiu o Destroier Inimigo!!")
-        destruidoDes == True
+        destruidoDes = True
     if checkContratorp(matrizComputador) == True and destruidoContratorp == False:
         print("Você destruiu o Contratorpedeiro Inimigo!!")
         destruidoContratorp = True
