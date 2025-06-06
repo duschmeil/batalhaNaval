@@ -110,7 +110,9 @@ def gerar_tabuleiro_computador():
 
 def jogadaJogador(matrizpc):
     while True: 
+        sleep(2)
         jogadaLinha, jogadaColuna = map(int, input("digite onde voce quer atacar: [LINHA(espaco)COLUNA] ").split())
+        sleep(2)
         if matrizpc[jogadaLinha - 1][jogadaColuna - 1] != 0 and matrizpc[jogadaLinha - 1][jogadaColuna - 1] != 'X' and matrizpc[jogadaLinha - 1][jogadaColuna - 1] != 'O':
             print("Você acertou algo...")
             matrizpc[jogadaLinha - 1][jogadaColuna - 1] = 'X'
@@ -123,7 +125,54 @@ def jogadaJogador(matrizpc):
             break
         elif matrizpc[jogadaLinha - 1][jogadaColuna - 1] == 'O' or matrizpc[jogadaLinha - 1][jogadaColuna - 1] == 'X':
             print("Você já jogou nesse lugar! Jogue novamente!")
-        printTabuleiroOculto(matrizpc)
+    return jogadaLinha, jogadaColuna
+
+def jogadaComputador(matriz):
+    while True:
+        jogadaLinha, jogadaColuna = randint(1, 10), randint(1, 10)
+        if matriz[jogadaLinha - 1][jogadaColuna - 1] != 0 and matriz[jogadaLinha - 1][jogadaColuna - 1] != 'X' and matriz[jogadaLinha - 1][jogadaColuna - 1] != 'O':
+            print("O computador acertou algo...")
+            matriz[jogadaLinha - 1][jogadaColuna - 1] = 'X'
+            printTabuleiro(matriz)
+        elif matriz[jogadaLinha - 1][jogadaColuna - 1] == 0:
+            print("O computador acertou a água! ")
+            matriz[jogadaLinha - 1][jogadaColuna - 1] = 'O'
+            printTabuleiro(matriz)
+            break
+        elif matriz[jogadaLinha - 1][jogadaColuna - 1] == 'O' or matriz[jogadaLinha - 1][jogadaColuna - 1] == 'X':
+            continue
+        printTabuleiro(matriz)
+    return jogadaLinha, jogadaColuna
+        
+def checkSub(matriz):
+    for linha in matriz:
+        if 'S' in linha:
+            return False
+    return True
+
+def checkContratorp(matriz):
+    for linha in matriz:
+        if 'C' in linha:
+            return False
+    return True
+
+def checkDes(matriz):
+    for linha in matriz:
+        if 'D' in linha:
+            return False
+    return True
+
+def checkTanque(matriz):
+    for linha in matriz:
+        if 'T' in linha:
+            return False
+    return True
+
+def checkPortA(matriz):
+    for linha in matriz:
+        if 'P' in linha:
+            return False
+    return True
 
 print("TABULEIRO DO JOGADOR")
 printTabuleiro(matrizJogador)
@@ -190,6 +239,32 @@ while True:
 
 printTabuleiro(matrizJogador)
 
+destruidoDes = False
+destruidoSub = False
+destruidoContratorp = False
+destruidoPortA = False
+destruidoTanque = False
+
 while True:
     jogadaJogador(matrizComputador)
-
+    if checkDes(matrizComputador) == True and destruidoDes == False:
+        print("Você destruiu o Destroier Inimigo!!")
+        destruidoDes == True
+    if checkContratorp(matrizComputador) == True and destruidoContratorp == False:
+        print("Você destruiu o Contratorpedeiro Inimigo!!")
+        destruidoContratorp = True
+    if checkSub(matrizComputador) == True and destruidoSub == False:
+        destruidoSub = True
+        print("Você destruiu o Submarino inimigo!!")
+    if checkTanque(matrizComputador) == True and destruidoTanque == False:
+        destruidoTanque = True
+        print("Você destruiu o Navio Tanque inimigo!!")
+    if checkPortA(matrizComputador) == True and destruidoPortA == False:
+        destruidoPortA = True
+        print("Você destruiu o Porta Aviões do inimigo!!")
+    sleep(2)
+    print("VEZ DO COMPUTADOR")
+    sleep(2)
+    jogadaComputador(matrizJogador)
+    sleep(2)
+    
