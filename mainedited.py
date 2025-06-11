@@ -95,14 +95,14 @@ def gerar_tabuleiro_computador():
 
     for letra, tamanho in navios.items():
         while True:
-            direcao = randint(0, 1) # 0 para horizontal, 1 para vertical
-            if direcao == 0: # Horizontal
+            direcao = randint(0, 1) 
+            if direcao == 0:
                 linha = randint(0, 9)
                 coluna = randint(0, 10 - tamanho)
                 if pode_posicionar_navio(matriz, linha, coluna, tamanho, 'H'):
                     posicionar_navio(matriz, linha, coluna, tamanho, 'H', letra)
                     break
-            else:  # Vertical
+            else: 
                 linha = randint(0, 10 - tamanho)
                 coluna = randint(0, 9)
                 if pode_posicionar_navio(matriz, linha, coluna, tamanho, 'V'):
@@ -212,6 +212,60 @@ def configurar_navios_jogador(matrizJogador):
             except ValueError:
                 print("Entrada inválida. Certifique-se de digitar números para linha e coluna.")
 
+def checkSub(matriz):
+    for linha in matriz:
+        if 'S' in linha:
+            return False
+    return True
+
+def checkContratorp(matriz):
+    for linha in matriz:
+        if 'C' in linha:
+            return False
+    return True
+
+def checkDes(matriz):
+    for linha in matriz:
+        if 'D' in linha:
+            return False
+    return True
+
+def checkTanque(matriz):
+    for linha in matriz:
+        if 'T' in linha:
+            return False
+    return True
+
+def checkPortA(matriz):
+    for linha in matriz:
+        if 'P' in linha:
+            return False
+    return True
+
+destruidoDes = False
+destruidoSub = False
+destruidoContratorp = False
+destruidoPortA = False
+destruidoTanque = False
+
+def checkNaviosDestruidos(matriz):
+    global destruidoDes, destruidoSub, destruidoContratorp, destruidoPortA, destruidoTanque
+    if checkDes(matriz) == True and destruidoDes == False:
+        print("Você destruiu o Destroier Inimigo!!")
+        destruidoDes = True
+    if checkContratorp(matriz) == True and destruidoContratorp == False:
+        print("Você destruiu o Contratorpedeiro Inimigo!!")
+        destruidoContratorp = True
+    if checkSub(matriz) == True and destruidoSub == False:
+        destruidoSub = True
+        print("Você destruiu o Submarino inimigo!!")
+    if checkTanque(matriz) == True and destruidoTanque == False:
+        destruidoTanque = True
+        print("Você destruiu o Navio Tanque inimigo!!")
+    if checkPortA(matriz) == True and destruidoPortA == False:
+        destruidoPortA = True
+        print("Você destruiu o Porta Aviões do inimigo!!")
+
 def jogar_batalha_naval():
     global matrizJogador, matrizComputador
     while True:
@@ -233,7 +287,6 @@ def jogar_batalha_naval():
             print("\nSUA VEZ DE ATACAR!")
             sleep(0.5)
             jogadaJogador(matrizComputador)
-            sleep(1)
 
             if todos_navios_afundados(matrizComputador):
                 print("\nPARABÉNS! VOCÊ DESTRUIU TODOS OS NAVIOS INIMIGOS E VENCEU A BATALHA!")
@@ -242,7 +295,6 @@ def jogar_batalha_naval():
             print("\nVEZ DO COMPUTADOR!")
             sleep(1)
             jogadaComputador(matrizJogador, tentativas_computador)
-            sleep(1)
 
             if todos_navios_afundados(matrizJogador):
                 print("\nQUE PENA! O COMPUTADOR DESTRUIU TODOS OS SEUS NAVIOS. VOCÊ PERDEU A BATALHA!")
