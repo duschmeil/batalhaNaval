@@ -181,11 +181,11 @@ def todos_navios_afundados(matriz):
 
 def configurar_navios_jogador(matrizJogador):
     navios = {
-        'D': 1,  
-        'S': 2,  
-        'C': 3,  
-        'T': 4,  
-        'P': 5   
+        'Destroier': 1,  
+        'Submarino': 2,  
+        'Contratorpedeiro': 3,  
+        'Tanque': 4,  
+        'Porta-Aviões': 5   
     }
 
     print("\n--- POSICIONAMENTO DOS SEUS NAVIOS ---")
