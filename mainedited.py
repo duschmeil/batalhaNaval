@@ -114,6 +114,7 @@ def obter_jogada_valida():
     while True:
         try:
             jogada = input("Digite onde você quer atacar (LINHA COLUNA): ").split()
+            sleep(1)
             if len(jogada) != 2:
                 print("Entrada inválida. Por favor, digite a linha e a coluna separadas por um espaço.")
                 continue
@@ -133,16 +134,18 @@ def jogadaJogador(matrizpc):
         
         celula_alvo = matrizpc[jogadaLinha - 1][jogadaColuna - 1]
 
+        sleep(1)
+
         if celula_alvo != 0 and celula_alvo != 'X' and celula_alvo != 'O':
             print("Você acertou algo!")
             matrizpc[jogadaLinha - 1][jogadaColuna - 1] = 'X'
             printTabuleiroOculto(matrizpc)
-            return True # Acertou um navio
+            return True 
         elif celula_alvo == 0:
             print("Você acertou a água!")
             matrizpc[jogadaLinha - 1][jogadaColuna - 1] = 'O'
             printTabuleiroOculto(matrizpc)
-            return False # Acertou a água
+            return False 
         elif celula_alvo == 'O' or celula_alvo == 'X':
             print("Você já jogou nesse lugar! Jogue novamente!")
 
@@ -158,13 +161,15 @@ def jogadaComputador(matrizJogador, tentativas_computador):
         if celula_alvo != 0 and celula_alvo != 'X' and celula_alvo != 'O':
             print(f"O computador atacou em ({jogadaLinha}, {jogadaColuna}) e acertou algo!")
             matrizJogador[jogadaLinha - 1][jogadaColuna - 1] = 'X'
+            sleep(1)
             printTabuleiro(matrizJogador)
-            return True # Acertou um navio
+            return True 
         elif celula_alvo == 0:
             print(f"O computador atacou em ({jogadaLinha}, {jogadaColuna}) e acertou a água!")
             matrizJogador[jogadaLinha - 1][jogadaColuna - 1] = 'O'
+            sleep(1)
             printTabuleiro(matrizJogador)
-            return False # Acertou a água
+            return False
 
 def todos_navios_afundados(matriz):
     navios_restantes = ['D', 'S', 'C', 'T', 'P']
@@ -184,12 +189,16 @@ def configurar_navios_jogador(matrizJogador):
     }
 
     print("\n--- POSICIONAMENTO DOS SEUS NAVIOS ---")
+    sleep(1)
     for letra, tamanho in navios.items():
         while True:
             printTabuleiro(matrizJogador)
+            sleep(1)
             print(f"Posicione seu navio {letra} (Tamanho: {tamanho})")
+            sleep(1)
             try:
                 entrada = input("Digite a linha, coluna e direção (H para Horizontal, V para Vertical): ").upper().split()
+                sleep(1)
                 if len(entrada) != 3:
                     print("Entrada inválida. Use o formato: LINHA COLUNA DIRECAO (ex: 1 1 H)")
                     continue
@@ -280,14 +289,20 @@ def jogar_batalha_naval():
 
         while True:
             print("\n--- SEU TABULEIRO ---")
+            sleep(1)
             printTabuleiro(matrizJogador)
+            sleep(1)
             print("\n--- TABULEIRO INIMIGO (OCULTO) ---")
+            sleep(1)
             printTabuleiroOculto(matrizComputador)
+            sleep(1)
 
             print("\nSUA VEZ DE ATACAR!")
             sleep(0.5)
             jogadaJogador(matrizComputador)
+            sleep(0.5)
             checkNaviosDestruidos(matrizComputador)
+            sleep(0.5)
             if todos_navios_afundados(matrizComputador):
                 print("\nPARABÉNS! VOCÊ DESTRUIU TODOS OS NAVIOS INIMIGOS E VENCEU A BATALHA!")
                 break
@@ -295,7 +310,9 @@ def jogar_batalha_naval():
             print("\nVEZ DO COMPUTADOR!")
             sleep(1)
             jogadaComputador(matrizJogador, tentativas_computador)
+            sleep(1)
             checkNaviosDestruidos(matrizJogador)
+            (1)
             if todos_navios_afundados(matrizJogador):
                 print("\nQUE PENA! O COMPUTADOR DESTRUIU TODOS OS SEUS NAVIOS. VOCÊ PERDEU A BATALHA!")
                 break
@@ -304,6 +321,7 @@ def jogar_batalha_naval():
         sleep(1)
         while True:
             jogar_novamente = input("Deseja jogar novamente? (s/n): ").lower()
+            sleep(1)
             if jogar_novamente in ['s', 'n']:
                 break
             else:
