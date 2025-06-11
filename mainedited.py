@@ -222,6 +222,8 @@ def jogar_batalha_naval():
         configurar_navios_jogador(matrizJogador)
 
         print("\n--- INÍCIO DO JOGO ---")
+        sleep(1)
+
         while True:
             print("\n--- SEU TABULEIRO ---")
             printTabuleiro(matrizJogador)
@@ -229,20 +231,25 @@ def jogar_batalha_naval():
             printTabuleiroOculto(matrizComputador)
 
             print("\nSUA VEZ DE ATACAR!")
+            sleep(0.5)
             jogadaJogador(matrizComputador)
+            sleep(1)
 
             if todos_navios_afundados(matrizComputador):
-                print("PARABÉNS! VOCÊ DESTRUIU TODOS OS NAVIOS INIMIGOS E VENCEU A BATALHA!")
+                print("\nPARABÉNS! VOCÊ DESTRUIU TODOS OS NAVIOS INIMIGOS E VENCEU A BATALHA!")
                 break
 
             print("\nVEZ DO COMPUTADOR!")
+            sleep(1)
             jogadaComputador(matrizJogador, tentativas_computador)
+            sleep(1)
 
             if todos_navios_afundados(matrizJogador):
-                print("QUE PENA! O COMPUTADOR DESTRUIU TODOS OS SEUS NAVIOS. VOCÊ PERDEU A BATALHA!")
+                print("\nQUE PENA! O COMPUTADOR DESTRUIU TODOS OS SEUS NAVIOS. VOCÊ PERDEU A BATALHA!")
                 break
 
         print("\nFIM DE JOGO.")
+        sleep(1)
         while True:
             jogar_novamente = input("Deseja jogar novamente? (s/n): ").lower()
             if jogar_novamente in ['s', 'n']:
@@ -251,6 +258,7 @@ def jogar_batalha_naval():
                 print("Opção inválida. Por favor, digite 's' para sim ou 'n' para não.")
         if jogar_novamente == 'n':
             break
+
 
 if __name__ == "__main__":
     jogar_batalha_naval()
