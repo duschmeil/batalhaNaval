@@ -287,7 +287,7 @@ def jogar_batalha_naval():
             print("\nSUA VEZ DE ATACAR!")
             sleep(0.5)
             jogadaJogador(matrizComputador)
-
+            checkNaviosDestruidos(matrizJogador)
             if todos_navios_afundados(matrizComputador):
                 print("\nPARABÉNS! VOCÊ DESTRUIU TODOS OS NAVIOS INIMIGOS E VENCEU A BATALHA!")
                 break
@@ -295,7 +295,7 @@ def jogar_batalha_naval():
             print("\nVEZ DO COMPUTADOR!")
             sleep(1)
             jogadaComputador(matrizJogador, tentativas_computador)
-
+            checkNaviosDestruidos(matrizJogador)
             if todos_navios_afundados(matrizJogador):
                 print("\nQUE PENA! O COMPUTADOR DESTRUIU TODOS OS SEUS NAVIOS. VOCÊ PERDEU A BATALHA!")
                 break
